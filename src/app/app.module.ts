@@ -14,11 +14,14 @@ import {
   MatTableModule,
   MatPaginatorModule,
   MatSortModule,
-  MatCheckboxModule
+  MatCheckboxModule,
+  MatCardModule
 } from '@angular/material';
 import {MatFormFieldModule} from '@angular/material/form-field';
 
-import { ReactiveFormsModule } from '@angular/forms';
+import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
+
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
@@ -44,14 +47,18 @@ import { AgregarCancionComponent } from './agregar-cancion/agregar-cancion.compo
     MatCheckboxModule,
     ReactiveFormsModule,
     MatFormFieldModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatCardModule,
+    FormsModule,
 
     AngularFireDatabaseModule,
     // To initialize AngularFire
     AngularFireModule.initializeApp(environment.firebase),
-    MatTableModule,
-    MatPaginatorModule,
-    MatSortModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FroalaEditorModule.forRoot(),
+    FroalaViewModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

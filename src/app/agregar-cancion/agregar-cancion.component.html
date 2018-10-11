@@ -1,4 +1,27 @@
-<mat-form-field>
-    <mat-label></mat-label>
-    <input placeholder="Just a placeholder">
-</mat-form-field>
+<form ngSubmit="guardarCancion()" [formGroup]="cancionForm">
+  <div class="col-md-12 ">
+    <mat-card class="example-card">
+      <mat-card-header>
+        <mat-card-title>
+          <h3>Registrar Canción</h3>
+        </mat-card-title>
+        <mat-card-subtitle></mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="form-group">
+          <input mat-input type="text" placeholder="Titulo de la canción" class="form-control" [(ngModel)]="title"
+            formControlName="title">
+            <span class="form-error-msg" *ngIf="cancionForm.controls['title'].hasError('required') && cancionForm.controls['title'].touched">
+              * Debes poner un nombre de canción.
+            </span>
+        </div>
+        <div class="form-group">
+          <textarea [froalaEditor]="options" [(froalaModel)]="body" formControlName="body"></textarea>
+        </div>
+      </mat-card-content>
+      <mat-card-actions>
+        <button type="submit" [disabled]="cancionForm.invalid" mat-raised-button color="primary" (click)="guardarCancion()">Guardar</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</form>

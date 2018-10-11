@@ -1,17 +1,17 @@
-import { LayoutModule } from '@angular/cdk/layout';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { LayoutModule } from "@angular/cdk/layout";
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
+import { NoopAnimationsModule } from "@angular/platform-browser/animations";
 import {
   MatButtonModule,
   MatIconModule,
   MatListModule,
   MatSidenavModule,
-  MatToolbarModule,
-} from '@angular/material';
+  MatToolbarModule
+} from "@angular/material";
 
-import { MaterialNavbarComponent } from './material-navbar.component';
+import { MaterialNavbarComponent } from "./material-navbar.component";
 
-describe('MaterialNavbarComponent', () => {
+describe("MaterialNavbarComponent", () => {
   let component: MaterialNavbarComponent;
   let fixture: ComponentFixture<MaterialNavbarComponent>;
 
@@ -25,7 +25,7 @@ describe('MaterialNavbarComponent', () => {
         MatIconModule,
         MatListModule,
         MatSidenavModule,
-        MatToolbarModule,
+        MatToolbarModule
       ]
     }).compileComponents();
   }));
@@ -36,7 +36,7 @@ describe('MaterialNavbarComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should compile', () => {
+  it("should compile", () => {
     expect(component).toBeTruthy();
   });
 });
