@@ -1,6 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { AngularFireDatabase } from "angularfire2/database";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { CancionesService } from "../canciones.service";
+import { Cancion } from "../models/cancion";
 
 @Component({
   selector: "app-agregar-cancion",
@@ -21,8 +23,9 @@ export class AgregarCancionComponent implements OnInit {
 
   constructor(
     private db: AngularFireDatabase,
-    private fb: FormBuilder
-    ) {}
+    private fb: FormBuilder,
+    private cancionesService: CancionesService
+  ) {}
 
   ngOnInit() {
     this.cancionForm = this.fb.group({
@@ -33,13 +36,13 @@ export class AgregarCancionComponent implements OnInit {
 
   guardarCancion() {
     if (this.title.trim()) {
-      this.db.list("/canciones").push({
-        title: this.title,
-        body: this.body
-      });
+      const cancion = new Cancion();
+      cancion.title = this.title.toLowerCase();
+      cancion.body = this.body.toLocaleLowerCase();
 
-      this.title = "";
-      this.body = "";
+      this.cancionesService.add(cancion);
+
+      this.cancionForm.reset();
     }
   }
 }

@@ -13,3 +13,8 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   display: block;
   padding: 5px 0;
 }
+
+.button-row button,
+.button-row a {
+  margin-right: 8px;
+}
