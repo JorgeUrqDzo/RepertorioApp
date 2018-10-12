@@ -21,7 +21,7 @@ export class AppDialogService {
   public show(title: string, message: string) {
     let dialogRef: MatDialogRef<AppDialogComponent>;
     dialogRef = this.dialog.open(AppDialogComponent, {
-      width: "380px",
+      width: "480px",
       disableClose: true,
       data: { title, message }
     });
@@ -39,7 +39,7 @@ export class AppDialogService {
   public confirm(title: string, message: string): Observable<boolean> {
     let dialogRef: MatDialogRef<AppComfirmComponent>;
     dialogRef = this.dialog.open(AppComfirmComponent, {
-      width: "380px",
+      width: "480px",
       disableClose: true,
       data: { title, message }
     });

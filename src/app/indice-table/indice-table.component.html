@@ -2,12 +2,11 @@
   <h2>Listado de canciones</h2>
 
   <div class="mat-elevation-z0">
-    <form ngSubmit="buscar()">
+    <form (ngSubmit)="buscar()">
       <div class="input-group mb-3">
-        <input type="text" name="titulo" class="form-control" placeholder="Buscar canción" aria-label="Buscar canción"
-          aria-describedby="button-addon2">
+        <input type="text" name="titulo" class="form-control" (keydown)="buscar()"  [(ngModel)]="busqueda" placeholder="Buscar canción" aria-label="Buscar canción">
         <div class="input-group-append">
-          <button class="btn btn-primary" type="button" id="button-addon2">
+          <button mat-raised-button color="primary" type="button" (click)="buscar()">
             <i class="fa fa-search"></i>
           </button>
         </div>

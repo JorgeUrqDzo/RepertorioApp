@@ -1,5 +1,5 @@
-<h1 matDialogTitle>{{ data.title }}</h1>
-<div mat-dialog-content>{{ data.message }}</div>
+<h2 matDialogTitle>{{ data.title }}</h2>
+<p mat-dialog-content [innerHTML]="data.message" ></p>
 <div mat-dialog-actions>
   <button type="button" mat-raised-button color="primary" class="form-control" mat-dialog-close>OK</button>
 </div>

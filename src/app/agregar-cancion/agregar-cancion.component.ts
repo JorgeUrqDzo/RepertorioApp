@@ -54,8 +54,8 @@ export class AgregarCancionComponent implements OnInit {
       } else {
         this.dialog
           .show(
-            "Error",
-            "El nombre de la canción ya está registrado en el sistema."
+            "Advertencia!!",
+            "El nombre de la canción ya está registrado en el sistema. <br> Por favor elija otro."
           )
           .subscribe(res => {
             return false;

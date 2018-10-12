@@ -31,7 +31,7 @@ export class IndiceTableComponent implements OnInit {
   sort: MatSort;
   dataSource: IndiceTableDataSource;
 
-  result: any;
+  result: any[];
 
   title = "";
   body = "";
@@ -40,6 +40,8 @@ export class IndiceTableComponent implements OnInit {
   editarCancion = false;
 
   cancionForm: FormGroup;
+
+  busqueda = "";
 
   public options: Object = {
     placeholderText: "Letra de la cancion ...",
@@ -60,6 +62,10 @@ export class IndiceTableComponent implements OnInit {
       key: [""]
     });
 
+    this.getCanciones();
+  }
+
+  getCanciones() {
     this.cancionesService.getAll().subscribe(items => {
       this.result = items;
     });
@@ -95,23 +101,27 @@ export class IndiceTableComponent implements OnInit {
       cancion.title = this.title.toLowerCase();
       cancion.body = this.body;
       const id = this.cancionForm.controls["key"].value;
-
-      this.cancionesService.update(id, cancion).catch(err => {
-        setTimeout(() => {
-          this.dialog
-            .show(
-              "Error",
-              "El nombre de la canción ya está registrado en el sistema."
-            )
-            .subscribe(res => {
-              return false;
-            });
-        }, 500);
-      });
-
-      this.cancionForm.reset();
-      this.verListaCancion();
+      if (!this.checkExist(cancion.title, id)) {
+        this.cancionesService.update(id, cancion);
+        this.cancionForm.reset();
+        this.verListaCancion();
+      } else {
+        this.cancionExistenteDialog();
+      }
     }
+  }
+
+  cancionExistenteDialog() {
+    setTimeout(() => {
+      this.dialog
+        .show(
+          "Advertencia!!",
+          "El nombre de la canción ya está registrado en el sistema.  <br> Por favor elija otro."
+        )
+        .subscribe(res => {
+          return false;
+        });
+    }, 500);
   }
 
   delete(item) {
@@ -119,7 +129,7 @@ export class IndiceTableComponent implements OnInit {
       this.dialog
         .confirm(
           "Confirmar Eliminar",
-          "¿Estás seguro de eliminar la cancion '" + item.title + "'?"
+          "¿Estás seguro de eliminar la canción: <b>" + item.title.toUpperCase() + "</b> ?"
         )
         .subscribe(result => {
           if (result) {
@@ -129,5 +139,20 @@ export class IndiceTableComponent implements OnInit {
     }, 500);
   }
 
-  buscar() {}
+  buscar() {
+    if (this.busqueda) {
+      this.result = this.result.filter(f =>
+        f.title.includes(this.busqueda.toLowerCase())
+      );
+    } else {
+      this.getCanciones();
+    }
+  }
+
+  checkExist(title, key): boolean {
+    const total = this.result.find(
+      c => c["title"] === title && c["key"] !== key
+    );
+    return total ? true : false;
+  }
 }

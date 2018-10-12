@@ -1,6 +1,6 @@
 <div class="sweet-alert">
   <h2 matDialogTitle>{{ data.title }}</h2>
-  <p mat-dialog-content>{{ data.message }}</p>
+  <p mat-dialog-content [innerHTML]="data.message" ></p>
   <div mat-dialog-actions class="col-md-12">
     <div class="col-md-6">
       <button mat-raised-button (click)="dialogRef.close(false)" class="pull-left">No</button>
