@@ -34,6 +34,7 @@ import { AgregarCancionComponent } from "./agregar-cancion/agregar-cancion.compo
 import { AppComfirmComponent } from "./common/app-comfirm/app-comfirm.component";
 import { AppDialogComponent } from "./common/app-dialog/app-dialog.component";
 import { AppLoaderComponent } from "./common/app-loader/app-loader.component";
+import { RecientesComponent } from "./recientes/recientes.component";
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,7 +43,8 @@ import { AppLoaderComponent } from "./common/app-loader/app-loader.component";
     AgregarCancionComponent,
     AppComfirmComponent,
     AppDialogComponent,
-    AppLoaderComponent
+    AppLoaderComponent,
+    RecientesComponent
   ],
   imports: [
     BrowserModule,

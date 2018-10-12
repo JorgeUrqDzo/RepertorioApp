@@ -50,14 +50,14 @@ export class IndiceTableComponent implements OnInit {
   constructor(
     private dialog: AppDialogService,
     private cancionesService: CancionesService,
-    private fb: FormBuilder,
+    private fb: FormBuilder
   ) {}
 
   ngOnInit() {
     this.cancionForm = this.fb.group({
       title: ["", Validators.required],
       body: [""],
-      key: [""],
+      key: [""]
     });
 
     this.cancionesService.getAll().subscribe(items => {
@@ -94,9 +94,20 @@ export class IndiceTableComponent implements OnInit {
       const cancion = new Cancion();
       cancion.title = this.title.toLowerCase();
       cancion.body = this.body;
-      cancion.key = this.cancionForm.controls["key"].value;
+      const id = this.cancionForm.controls["key"].value;
 
-      this.cancionesService.update(cancion.key, cancion);
+      this.cancionesService.update(id, cancion).catch(err => {
+        setTimeout(() => {
+          this.dialog
+            .show(
+              "Error",
+              "El nombre de la canción ya está registrado en el sistema."
+            )
+            .subscribe(res => {
+              return false;
+            });
+        }, 500);
+      });
 
       this.cancionForm.reset();
       this.verListaCancion();
@@ -108,7 +119,7 @@ export class IndiceTableComponent implements OnInit {
       this.dialog
         .confirm(
           "Confirmar Eliminar",
-          "¿Estás seguro de eliminar la cancion \"" + item.title + "\"?"
+          "¿Estás seguro de eliminar la cancion '" + item.title + "'?"
         )
         .subscribe(result => {
           if (result) {

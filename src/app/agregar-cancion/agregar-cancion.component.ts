@@ -3,6 +3,7 @@ import { AngularFireDatabase } from "angularfire2/database";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { CancionesService } from "../canciones.service";
 import { Cancion } from "../models/cancion";
+import { AppDialogService } from "../common/app-dialog/app-dialog.service";
 
 @Component({
   selector: "app-agregar-cancion",
@@ -19,18 +20,25 @@ export class AgregarCancionComponent implements OnInit {
   title = "";
   body = "";
 
+  cancionesList: any[];
+
   cancionForm: FormGroup;
 
   constructor(
     private db: AngularFireDatabase,
     private fb: FormBuilder,
-    private cancionesService: CancionesService
+    private cancionesService: CancionesService,
+    private dialog: AppDialogService
   ) {}
 
   ngOnInit() {
     this.cancionForm = this.fb.group({
       title: ["", Validators.required],
       body: [""]
+    });
+
+    this.cancionesService.getAll().subscribe(items => {
+      this.cancionesList = items;
     });
   }
 
@@ -40,9 +48,24 @@ export class AgregarCancionComponent implements OnInit {
       cancion.title = this.title.toLowerCase();
       cancion.body = this.body.toLocaleLowerCase();
 
-      this.cancionesService.add(cancion);
-
-      this.cancionForm.reset();
+      if (!this.checkExist(cancion.title)) {
+        this.cancionesService.add(cancion);
+        this.cancionForm.reset();
+      } else {
+        this.dialog
+          .show(
+            "Error",
+            "El nombre de la canción ya está registrado en el sistema."
+          )
+          .subscribe(res => {
+            return false;
+          });
+      }
     }
+  }
+
+  checkExist(title): boolean {
+    const total = this.cancionesList.find(c => c["title"] === title);
+    return total ? true : false;
   }
 }

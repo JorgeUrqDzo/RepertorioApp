@@ -14,9 +14,14 @@ export class CancionesService {
     return this.db
       .list("/canciones/")
       .snapshotChanges()
-      .pipe(
-        map(actions => actions.map(a => ({ key: a.key, ...a.payload.val() })))
-      );
+      .pipe(map(c => c.map(a => ({ key: a.key, ...a.payload.val() }))));
+  }
+
+  getRecent() {
+    return this.db
+      .list("/canciones/", ref => ref.limitToLast(5))
+      .snapshotChanges()
+      .pipe(map(c => c.map(a => ({ key: a.key, ...a.payload.val() }))));
   }
 
   add(cancion: Cancion) {

@@ -1,4 +1,6 @@
 <div *ngIf="!showLetra && !editarCancion">
+  <h2>Listado de canciones</h2>
+
   <div class="mat-elevation-z0">
     <form ngSubmit="buscar()">
       <div class="input-group mb-3">
@@ -16,7 +18,7 @@
   <div class="mat-elevation-z4">
     <table class="full-width-table table">
       <tr>
-        <th>Id</th>
+        <th>#</th>
         <th>Titulo</th>
         <th></th>
       </tr>
