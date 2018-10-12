@@ -23,10 +23,8 @@
       </tr>
       <tr *ngFor="let item of result; let i = index">
         <td>{{i + 1}}</td>
-        <td>
-          <a href="#" (click)="verLetra(item)">
+        <td (click)="verLetra(item)" style="cursor:pointer ">
             {{item.title | uppercase}}
-          </a>
         </td>
         <td>
           <div class="button-row pull-right">
